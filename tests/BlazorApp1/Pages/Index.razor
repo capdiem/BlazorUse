@@ -38,10 +38,16 @@ Welcome to your new app.
             //     await Task.CompletedTask;
             // });
             
-            _res2 = await BlazorUse.UseElementSizeAsync(".resize-test", async (size) =>
+            // _res2 = await BlazorUse.UseElementSizeAsync(".resize-test", async (size) =>
+            // {
+            //     Console.WriteLine($"size: {size.Width}x{size.Height}");
+            //     await Task.CompletedTask;
+            // });
+
+            _res2 = await BlazorUse.UseWindowScrollAsync(p =>
             {
-                Console.WriteLine($"size: {size.Width}x{size.Height}");
-                await Task.CompletedTask;
+                Console.Out.WriteLine($"scroll {p.X} {p.Y}");
+                return Task.CompletedTask;
             });
         }
     }

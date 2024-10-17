@@ -8,4 +8,11 @@ public static class BlazorUseExtensions
         var useElementSize = new UseElementSize(blazorUse.GetJSRuntime());
         return await useElementSize.CreateAsync(selector, callback);
     }
+
+    public static async ValueTask<Registration> UseWindowScrollAsync(this BlazorUse blazorUse,
+        Func<ScrollPosition, Task> callback)
+    {
+        var useWindowScroll = new UseWindowScroll(blazorUse.GetJSRuntime());
+        return await useWindowScroll.CreateAsync(callback);
+    }
 }

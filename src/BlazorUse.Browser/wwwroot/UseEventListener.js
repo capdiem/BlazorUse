@@ -4,14 +4,13 @@ export function useEventListener(eventName, invoker) {
   };
 
   const register = {
-    fn: listener,
     un: () => {
       invoker.dispose();
       window.removeEventListener(eventName, listener)
     }
   }
 
-  window.addEventListener(eventName, register.fn);
+  window.addEventListener(eventName, listener);
 
   return register;
 }
