@@ -1,0 +1,56 @@
+﻿@inject BlazorUse BlazorUse
+
+<ul>
+    <li>
+        <b>UseProp</b>
+        <div>window.innerHeight: @_innerHeight</div>
+    </li>
+    <li>
+        <b>UseSelect</b>
+        <div>
+            <input value="123qwe" type="text" @ref="_select"/>
+            <button @onclick="@(() => BlazorUse.UseSelect(_select))">select</button>
+        </div>
+    </li>
+    <li>
+        <b>UseFocus & UseBlur</b>
+        <div>
+            <input @ref="_input1"/>
+            <button @onclick="() => BlazorUse.UseFocus(_input1)">focus</button>
+            <button @onclick="@FocusAndThenBlur">focus and then blur</button>
+        </div>
+    </li>
+    <li>
+        <b>UseLog</b>
+        <div>
+            <button @onclick="@(() => BlazorUse.UseLog("log"))">log</button>
+            <button @onclick="@(() => BlazorUse.UseLog("warn", "warn"))">warn</button>
+            <button @onclick="@(() => BlazorUse.UseLog("error", "error"))">error</button>
+        </div>
+    </li>
+</ul>
+
+@code {
+
+    private double _innerHeight;
+    private ElementReference _select;
+    private ElementReference _input1;
+    private ElementReference _blurDiv;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _innerHeight = await BlazorUse.UsePropAsync<double>("window", "innerHeight");
+            StateHasChanged();
+        }
+    }
+
+    private async Task FocusAndThenBlur()
+    {
+        await BlazorUse.UseFocusAsync(_input1);
+        await Task.Delay(1000);
+        await BlazorUse.UseBlurAsync(_input1);
+    }
+
+}

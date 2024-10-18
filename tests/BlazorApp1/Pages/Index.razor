@@ -4,72 +4,70 @@
 @using BlazorUse.Elements
 @* @inject UseEventListener UseEventListener *@
 @inject BlazorUse BlazorUse
-@implements IDisposable
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
+<CoreExample />
+<ElementsExample />
 
-Welcome to your new app.
-
-<button @onclick="Click">button</button>
-<button @onclick="Click2">remove button</button>
-
-<textarea style="resize: both; padding:  1rem; width: 200px; height: 200px; border: 1px solid black"
-     class="resize-test">
-</textarea>
-<button @onclick="@(() => _res2.Un())">dispose</button>
-
-<div style="height: 200vh"></div>
-
-
-@code {
-
-    private Registration _res = new();
-    private Registration _res2 = new();
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            // _res2 = await BlazorUse.UseResizeObserverAsync(".resize-test", async () =>
-            // {
-            //     Console.WriteLine("resize");
-            //     await Task.CompletedTask;
-            // });
-            
-            // _res2 = await BlazorUse.UseElementSizeAsync(".resize-test", async (size) =>
-            // {
-            //     Console.WriteLine($"size: {size.Width}x{size.Height}");
-            //     await Task.CompletedTask;
-            // });
-
-            _res2 = await BlazorUse.UseWindowScrollAsync(p =>
-            {
-                Console.Out.WriteLine($"scroll {p.X} {p.Y}");
-                return Task.CompletedTask;
-            });
-        }
-    }
-
-    private async Task Click()
-    {
-        // _res = await UseEventListener.CreateAsync("scroll", async () => { Console.WriteLine("scroll"); });
-        _res = await BlazorUse.UseEventListenerAsync("scroll", () =>
-        {
-            Console.WriteLine("scroll");
-            return Task.CompletedTask;
-        });
-    }
-
-    private void Click2()
-    {
-        _res.Un.Invoke();
-    }
-
-    public void Dispose()
-    {
-        _res.Un.Invoke();
-    }
-
-}
+@* <button @onclick="Click">button</button> *@
+@* <button @onclick="Click2">remove button</button> *@
+@* *@
+@* <textarea style="resize: both; padding:  1rem; width: 200px; height: 200px; border: 1px solid black" *@
+@*      class="resize-test"> *@
+@* </textarea> *@
+@* <button @onclick="@(() => _res2.Un())">dispose</button> *@
+@* *@
+@* <div style="height: 200vh"></div> *@
+@* *@
+@* *@
+@* @code { *@
+@* *@
+@*     private Registration _res = new(); *@
+@*     private Registration _res2 = new(); *@
+@* *@
+@*     protected override async Task OnAfterRenderAsync(bool firstRender) *@
+@*     { *@
+@*         if (firstRender) *@
+@*         { *@
+@*             // _res2 = await BlazorUse.UseResizeObserverAsync(".resize-test", async () => *@
+@*             // { *@
+@*             //     Console.WriteLine("resize"); *@
+@*             //     await Task.CompletedTask; *@
+@*             // }); *@
+@*              *@
+@*             // _res2 = await BlazorUse.UseElementSizeAsync(".resize-test", async (size) => *@
+@*             // { *@
+@*             //     Console.WriteLine($"size: {size.Width}x{size.Height}"); *@
+@*             //     await Task.CompletedTask; *@
+@*             // }); *@
+@* *@
+@*             _res2 = await BlazorUse.UseWindowScrollAsync(p => *@
+@*             { *@
+@*                 Console.Out.WriteLine($"scroll {p.X} {p.Y}"); *@
+@*                 return Task.CompletedTask; *@
+@*             }); *@
+@*         } *@
+@*     } *@
+@* *@
+@*     private async Task Click() *@
+@*     { *@
+@*         // _res = await UseEventListener.CreateAsync("scroll", async () => { Console.WriteLine("scroll"); }); *@
+@*         _res = await BlazorUse.UseEventListenerAsync("scroll", () => *@
+@*         { *@
+@*             Console.WriteLine("scroll"); *@
+@*             return Task.CompletedTask; *@
+@*         }); *@
+@*     } *@
+@* *@
+@*     private void Click2() *@
+@*     { *@
+@*         _res.Un.Invoke(); *@
+@*     } *@
+@* *@
+@*     public void Dispose() *@
+@*     { *@
+@*         _res.Un.Invoke(); *@
+@*     } *@
+@* *@
+@* } *@

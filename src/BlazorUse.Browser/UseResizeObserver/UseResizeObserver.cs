@@ -1,7 +1,4 @@
-﻿using BlazorUse.Elements;
-using Microsoft.JSInterop;
-
-namespace BlazorUse.Browser;
+﻿namespace BlazorUse.Browser;
 
 public class UseResizeObserver : UseBase
 {

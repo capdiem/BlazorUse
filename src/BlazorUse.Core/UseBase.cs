@@ -1,4 +1,4 @@
-﻿namespace BlazorUse.Elements;
+﻿namespace BlazorUse.Core;
 
 public abstract class UseBase : IAsyncDisposable
 {
@@ -16,7 +16,7 @@ public abstract class UseBase : IAsyncDisposable
     {
         if (_moduleTask.IsValueCreated)
         {
-            var module = await _moduleTask.Value;
+            var module = await GetModuleAsync();
             await module.DisposeAsync();
         }
     }

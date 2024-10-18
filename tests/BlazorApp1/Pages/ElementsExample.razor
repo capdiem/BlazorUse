@@ -1,0 +1,35 @@
+﻿@using BlazorUse.Elements
+@inject BlazorUse BlazorUse
+
+<ul>
+    <li>
+        <b>UseElementSize</b>
+        <div>
+            <textarea style="resize: both; padding:  1rem; width: 200px; height: 200px; border: 1px solid black"
+                      class="resize-test">
+            </textarea>
+        </div>
+    </li>
+</ul>
+
+@code {
+    private Registration _useElementSizeRegistration = new();
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await UseElementSize();
+        }
+    }
+
+    private async Task UseElementSize()
+    {
+        _useElementSizeRegistration = await BlazorUse.UseElementSizeAsync(".resize-test", async (size) =>
+        {
+            Console.WriteLine($"size: {size.Width}x{size.Height}");
+            await Task.CompletedTask;
+        });
+    }
+
+}
