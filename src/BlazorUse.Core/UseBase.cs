@@ -10,7 +10,7 @@ public abstract class UseBase : IAsyncDisposable
             jsRuntime.InvokeAsync<IJSObjectReference>("import", modulePath).AsTask());
     }
 
-    protected Task<IJSObjectReference> GetModuleAsync() => _moduleTask.Value;
+    public Task<IJSObjectReference> GetModuleAsync() => _moduleTask.Value;
 
     public async ValueTask DisposeAsync()
     {

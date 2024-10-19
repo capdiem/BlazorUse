@@ -7,15 +7,26 @@ public class UseWindowScroll : UseBase
     {
     }
 
-    public async ValueTask<Registration> CreateAsync(Func<ScrollPosition, Task> callback)
+    public async ValueTask<UseWindowScrollResult> CreateAsync(Func<ScrollPosition, Task>? callback)
     {
         var module = await GetModuleAsync();
-        var registration = await module.InvokeAsync<IJSObjectReference>("useWindowScroll",
-            DotNetObjectReference.Create(new Invoker<ScrollPosition>(callback)));
 
-        return new Registration()
-        {
-            Un = () => _ = registration.InvokeVoidAsync("un")
-        };
+        UseWindowScrollResult result = new();
+
+        var jsObjRef = await module.InvokeAsync<IJSObjectReference>("useWindowScroll",
+            DotNetObjectReference.Create(new Invoker<ScrollPosition>(async position =>
+            {
+                result.UpdatePositionNoEffect(position.X, position.Y);
+
+                if (callback != null)
+                {
+                    await callback(position);
+                }
+            })));
+
+        result.ScrollTo = (options) => _ = jsObjRef.InvokeVoidAsync("scrollTo", options);
+        result.Un = () => _ = jsObjRef.InvokeVoidAsync("un");
+
+        return result;
     }
 }

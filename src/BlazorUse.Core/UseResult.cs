@@ -1,8 +1,8 @@
 ﻿namespace BlazorUse;
 
-public struct Registration
+public class UseResult
 {
-    public Registration()
+    public UseResult()
     {
     }
 

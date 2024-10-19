@@ -7,6 +7,9 @@
   };
 
   const register = {
+    scrollTo: (options) => {
+      window.scrollTo(options)
+    },
     un: () => {
       invoker.dispose();
       window.removeEventListener('scroll', listener)
