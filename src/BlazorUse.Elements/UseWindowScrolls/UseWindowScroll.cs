@@ -3,7 +3,7 @@
 public class UseWindowScroll : UseBase
 {
     public UseWindowScroll(IJSRuntime jsRuntime) : base(jsRuntime,
-        "./_content/BlazorUse.Elements/UseWindowScroll.js")
+        "./_content/BlazorUse.Elements/useWindowScroll.js")
     {
     }
 

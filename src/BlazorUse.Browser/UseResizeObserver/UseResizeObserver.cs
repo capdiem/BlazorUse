@@ -3,7 +3,7 @@
 public class UseResizeObserver : UseBase
 {
     public UseResizeObserver(IJSRuntime jsRuntime) : base(jsRuntime,
-        "./_content/BlazorUse.Browser/UseResizeObserver.js")
+        "./_content/BlazorUse.Browser/useResizeObserver.js")
     {
     }
 

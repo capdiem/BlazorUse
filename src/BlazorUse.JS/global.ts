@@ -1,0 +1,1 @@
+type elOrString = HTMLElement | string;

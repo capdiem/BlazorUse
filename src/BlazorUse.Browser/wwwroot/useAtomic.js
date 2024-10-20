@@ -1,4 +1,1 @@
-export function useLog(message, level) {
-  const fn = console[level];
-  fn && fn(message);
-}
+function o(o,n="log"){const c=console[n];c&&c(o)}export{o as useLog};

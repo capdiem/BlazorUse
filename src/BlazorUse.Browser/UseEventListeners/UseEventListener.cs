@@ -2,7 +2,7 @@
 
 public class UseEventListener : UseBase
 {
-    public UseEventListener(IJSRuntime jsRuntime) : base(jsRuntime, "./_content/BlazorUse.Browser/UseEventListener.js")
+    public UseEventListener(IJSRuntime jsRuntime) : base(jsRuntime, "./_content/BlazorUse.Browser/useEventListener.js")
     {
     }
 
