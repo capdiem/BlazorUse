@@ -2,7 +2,7 @@
 
 namespace BlazorUse;
 
-public class BlazorUse : UseBase
+public class BlazorUse : UseBase, IBlazorUse
 {
     private readonly ConcurrentDictionary<string, object> _useDic = new();
     private readonly IJSRuntime _jsRuntime;
@@ -23,13 +23,4 @@ public class BlazorUse : UseBase
         _useDic.TryAdd(identifier, instance);
         return instance;
     }
-
-
-    public async Task UseLogAsync(string message, string level = "log")
-    {
-        var module = await GetModuleAsync();
-        await module.InvokeVoidAsync("useLog", message, level);
-    }
-
-    public void UseLog(string message, string level = "log") => _ = UseLogAsync(message, level);
 }
