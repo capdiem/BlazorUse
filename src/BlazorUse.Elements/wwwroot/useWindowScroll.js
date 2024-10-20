@@ -1,0 +1,1 @@
+import{_ as o}from"./tslib.es6.js";function n(n){const s=()=>o(this,void 0,void 0,(function*(){yield n.invokeMethodAsync("Invoke",{x:window.scrollX,y:window.scrollY})})),e={scrollTo:o=>{window.scrollTo(o)},un:()=>{n.dispose(),window.removeEventListener("scroll",s)}};return window.addEventListener("scroll",s,{capture:!1,passive:!0}),e}export{n as useWindowScroll};

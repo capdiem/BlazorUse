@@ -1,0 +1,1 @@
+import{_ as e}from"./tslib.es6.js";function n(n,o){const i=n=>e(this,void 0,void 0,(function*(){yield o.invokeMethodAsync("Invoke")})),t={un:()=>{o.dispose(),window.removeEventListener(n,i)}};return window.addEventListener(n,i),t}export{n as useEventListener};

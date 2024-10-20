@@ -1,18 +1,1 @@
-﻿export function useElementBounding(selector, invoker) {
-  const observer = new ResizeObserver(async entries => {
-    if (!entries || entries.length === 0) return;
-    const entry = entries[0];
-    await invoker.invokeMethodAsync('Invoke', entry.target.getBoundingClientRect());
-  });
-
-  const element = document.querySelector(selector);
-  observer.observe(element);
-
-  return {
-    un: () => {
-      invoker.dispose();
-      observer.unobserve(element)
-      observer.disconnect();
-    }
-  }
-}
+import{_ as e}from"./tslib.es6.js";import{g as n}from"./utils.js";function o(o,t){const s=new ResizeObserver((n=>e(this,void 0,void 0,(function*(){if(!n||0===n.length)return;const e=n[0];yield t.invokeMethodAsync("Invoke",e.target.getBoundingClientRect())})))),i=n(o);if(!(i instanceof Window))return s.observe(i),{un:()=>{t.dispose(),s.unobserve(i),s.disconnect()}};console.error("useElementBounding does not support window")}export{o as useElementBounding};
