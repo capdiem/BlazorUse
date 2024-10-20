@@ -1,7 +1,4 @@
-﻿using BlazorUse.Elements;
-using Microsoft.JSInterop;
-
-namespace BlazorUse.Browser;
+﻿namespace BlazorUse.Browser;
 
 public class UseEventListener : UseBase
 {
@@ -9,13 +6,13 @@ public class UseEventListener : UseBase
     {
     }
 
-    public async ValueTask<Registration> CreateAsync(string eventName, Func<Task> callback)
+    public async ValueTask<UseResult> CreateAsync(string eventName, Func<Task> callback)
     {
         var module = await GetModuleAsync();
         var registration = await module.InvokeAsync<IJSObjectReference>("useEventListener", eventName,
             DotNetObjectReference.Create(new Invoker(callback)));
 
-        return new Registration()
+        return new UseResult()
         {
             Un = () => _ = registration.InvokeVoidAsync("un")
         };

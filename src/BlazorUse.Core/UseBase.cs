@@ -1,4 +1,4 @@
-﻿namespace BlazorUse.Elements;
+﻿namespace BlazorUse.Core;
 
 public abstract class UseBase : IAsyncDisposable
 {
@@ -10,13 +10,13 @@ public abstract class UseBase : IAsyncDisposable
             jsRuntime.InvokeAsync<IJSObjectReference>("import", modulePath).AsTask());
     }
 
-    protected Task<IJSObjectReference> GetModuleAsync() => _moduleTask.Value;
+    public Task<IJSObjectReference> GetModuleAsync() => _moduleTask.Value;
 
     public async ValueTask DisposeAsync()
     {
         if (_moduleTask.IsValueCreated)
         {
-            var module = await _moduleTask.Value;
+            var module = await GetModuleAsync();
             await module.DisposeAsync();
         }
     }

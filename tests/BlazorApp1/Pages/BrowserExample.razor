@@ -1,0 +1,16 @@
+﻿@inject IBlazorUse BlazorUse
+
+<ul>
+    <li>
+        <b>UseLog</b>
+        <div>
+            <button @onclick="@(() => _ = BlazorUse.UseLogAsync("log"))">log</button>
+            <button @onclick="@(() => _ = BlazorUse.UseLogAsync("warn", "warn"))">warn</button>
+            <button @onclick="@(() => _ = BlazorUse.UseLogAsync("error", "error"))">error</button>
+        </div>
+    </li>
+</ul>
+
+@code {
+
+}

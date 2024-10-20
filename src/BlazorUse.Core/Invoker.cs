@@ -1,4 +1,4 @@
-﻿namespace BlazorUse.Elements;
+﻿namespace BlazorUse.Core;
 
 public class Invoker
 {

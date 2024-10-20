@@ -1,0 +1,124 @@
+﻿@using System.Text.Json
+@using BlazorUse.Elements
+@inject IBlazorUse BlazorUse
+@implements IAsyncDisposable
+
+<ul>
+    <li>
+        <b>UseProp</b>
+        <div>window.innerHeight: @_innerHeight</div>
+    </li>
+    <li>
+        <b>UseSelect</b>
+        <div>
+            <input value="123qwe" type="text" @ref="_select"/>
+            <button @onclick="@(() => _ = BlazorUse.UseSelectAsync(_select))">select</button>
+        </div>
+    </li>
+    <li>
+        <b>UseFocus & UseBlur</b>
+        <div>
+            <input @ref="_input1"/>
+            <button @onclick="() => _ = BlazorUse.UseFocusAsync(_input1)">focus</button>
+            <button @onclick="@FocusAndThenBlur">focus and then blur</button>
+        </div>
+    </li>
+    <li>
+        <b>UseBoundingRect</b>
+        <div>
+            <textarea style="resize: both; padding:  1rem; width: 200px; height: 100px; border: 1px solid black"
+                  class="resize-textarea2">
+            </textarea>
+            <div>
+                <button @onclick="GetBoundingRect">Get bounding rect</button>
+                <div>
+                    @JsonSerializer.Serialize(_boundingRect2)
+                </div>
+            </div>
+        </div>
+    </li>
+    <li>
+        <b>UseElementBounding</b>
+        <div>
+            <textarea style="resize: both; padding:  1rem; width: 200px; height: 100px; border: 1px solid black"
+                      class="resize-textarea">
+            </textarea>
+            <div>
+                @JsonSerializer.Serialize(_boundingRect)
+            </div>
+        </div>
+    </li>
+    <li>
+        <b>UseWindowScroll with no callback</b>
+        <div>
+            <div>
+                Window scroll X: @_useWindowScrollResult?.X Y: @_useWindowScrollResult?.Y
+            </div>
+            @if (_useWindowScrollResult != null)
+            {
+                <div>
+                    <button @onclick="() => _useWindowScrollResult.Y += 50">scroll down</button>
+                    <button @onclick="StateHasChanged">Get current scroll position</button>
+                </div>
+            }
+        </div>
+    </li>
+</ul>
+
+<div style="height: 100vh"></div>
+
+@code {
+    private UseResult _useElementSizeUseResult = new();
+    private BoundingRect _boundingRect = new();
+    private BoundingRect _boundingRect2 = new();
+    private UseWindowScrollResult? _useWindowScrollResult;
+
+    private double _innerHeight;
+    private ElementReference _select;
+    private ElementReference _input1;
+    private ElementReference _blurDiv;
+
+    private async Task FocusAndThenBlur()
+    {
+        await BlazorUse.UseFocusAsync(_input1);
+        await Task.Delay(1000);
+        await BlazorUse.UseBlurAsync(_input1);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _innerHeight = await BlazorUse.UsePropAsync<double>("window", "innerHeight");
+            await UseElementSize();
+            await UseWindowScroll();
+            StateHasChanged();
+        }
+    }
+
+    private async Task GetBoundingRect()
+    {
+        _boundingRect2 = await BlazorUse.UseBoundingRectAsync(".resize-textarea");
+    }
+
+    private async Task UseElementSize()
+    {
+        _useElementSizeUseResult = await BlazorUse.UseElementSizeAsync(".resize-textarea", async (rect) =>
+        {
+            _boundingRect = rect;
+            await InvokeAsync(StateHasChanged);
+        });
+    }
+
+    private async Task UseWindowScroll()
+    {
+        _useWindowScrollResult = await BlazorUse.UseWindowScrollAsync();
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        _useElementSizeUseResult.Un();
+        _useWindowScrollResult?.Un();
+    }
+
+}
