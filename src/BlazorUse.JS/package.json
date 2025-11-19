@@ -14,7 +14,7 @@
     "@microsoft/dotnet-js-interop": "^8.0.0",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^12.1.1",
-    "glob": "^11.0.0",
+    "glob": "^11.1.0",
     "prettier": "^3.3.3",
     "rollup": "^4.24.0",
     "tslib": "^2.8.0",
